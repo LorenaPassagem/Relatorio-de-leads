@@ -1,0 +1,187 @@
+{
+  "name": "First Form",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Cadastro de alunos",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Digite seu nome",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Digite a data de nascimento",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Digite seu email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Digite seu WhatsApp",
+              "fieldType": "number"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        -32
+      ],
+      "id": "67ae4a4b-0694-44c8-87ec-91e825bdb715",
+      "name": "On form submission",
+      "webhookId": "58e19b0b-9a53-409e-9636-7cb03c1c24ea"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BDfbzxCq7PM2HxSKrnf_E9IyI7-ustk9dAW02vLgbwE",
+          "mode": "list",
+          "cachedResultName": "Dados Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BDfbzxCq7PM2HxSKrnf_E9IyI7-ustk9dAW02vLgbwE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BDfbzxCq7PM2HxSKrnf_E9IyI7-ustk9dAW02vLgbwE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nome": "={{ $json['Digite seu nome'] }}",
+            "Data de nascimento": "={{ $json['Digite a data de nascimento'] }}",
+            "Email": "={{ $json['Digite seu email'] }}",
+            "Telefone": "={{ $json['Digite seu WhatsApp'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Data de nascimento",
+              "displayName": "Data de nascimento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -224,
+        0
+      ],
+      "id": "bac4c63a-37f5-4062-a56b-bb04c3b59b5a",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mkR2SG5f9w1L4LLT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Segue link importante",
+        "message": "Segue link importante https://www.instagram.com/p/CO1BdO3LIwu/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "0ac6ccc8-83e9-4fd7-95dd-f498b04228d7",
+      "name": "Send a message",
+      "webhookId": "96b288ac-012b-413a-8684-66917eab10f6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "cpQ7xV2npYUnUQCs",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bce04e92-5422-4514-9ae4-7e029a2aefa2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bb1b225c6cbcc957fb49cf4565b39ba6682d94720b2716b0af142a4c348fdd7d"
+  },
+  "id": "QfTJLKYvFjzBTbXf",
+  "tags": []
+}
